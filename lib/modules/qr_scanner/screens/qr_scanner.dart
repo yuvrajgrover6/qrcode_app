@@ -30,8 +30,29 @@ class QrScanner extends GetView<QRController> {
                 Get.defaultDialog(title: 'Failed to scan Barcode');
               } else {
                 final String result = barcode.rawValue!;
-                await controller.onResult(result);
-                Get.defaultDialog(title: 'Barcode', content: Text(result));
+                TextEditingController captionController =
+                    TextEditingController();
+                Get.defaultDialog(
+                    title: 'Barcode',
+                    content: Column(
+                      children: [
+                        Text(
+                          '${barcode.type.name}: $result',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text("Add caption"),
+                        TextField(
+                          controller: captionController,
+                        )
+                      ],
+                    ),
+                    confirm: ElevatedButton(
+                        onPressed: () async {
+                          await controller.onResult(
+                              result, captionController.text);
+                          Get.back();
+                        },
+                        child: Text("Save to history")));
               }
             }),
         Positioned.fill(

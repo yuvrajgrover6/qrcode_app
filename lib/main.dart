@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'SignikaNegative',
         primarySwatch: kPrimaryColor,
+        primaryColor: kPrimaryColor,
       ),
       home: const HomeScreen(),
     );
