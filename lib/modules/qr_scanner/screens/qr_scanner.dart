@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qrcode_app/constants.dart';
+import 'package:qrcode_app/modules/qr_scanner/screens/scan_overlay.dart';
 
 class QrScanner extends StatelessWidget {
-  const QrScanner({
+  QrScanner({
     Key? key,
     required this.width,
     required this.height,
@@ -17,7 +18,6 @@ class QrScanner extends StatelessWidget {
   Widget build(BuildContext context) {
     MobileScannerController cameraController =
         MobileScannerController(facing: CameraFacing.back);
-
     return Stack(
       children: [
         MobileScanner(
@@ -31,6 +31,11 @@ class QrScanner extends StatelessWidget {
                 Get.defaultDialog(title: 'Barcode', content: Text(code));
               }
             }),
+        Positioned.fill(
+          child: CustomPaint(
+            painter: ScanOverlay(),
+          ),
+        ),
         Positioned(
           left: width * 0.5 - 100,
           child: Container(
@@ -47,26 +52,25 @@ class QrScanner extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: ValueListenableBuilder(
-                    valueListenable: cameraController.cameraFacingState,
-                    builder: (context, state, child) {
-                      switch (state as CameraFacing) {
-                        case CameraFacing.front:
-                          return const Icon(
-                            Icons.camera_front,
-                            color: kIconColor,
-                          );
-                        case CameraFacing.back:
-                          return const Icon(
-                            Icons.camera_rear,
-                            color: kIconColor,
-                          );
-                      }
-                    },
-                  ),
-                  iconSize: 32.0,
-                  onPressed: () => cameraController.switchCamera(),
-                ),
+                    icon: ValueListenableBuilder(
+                      valueListenable: cameraController.cameraFacingState,
+                      builder: (context, state, child) {
+                        switch (state as CameraFacing) {
+                          case CameraFacing.front:
+                            return const Icon(
+                              Icons.camera_front,
+                              color: kIconColor,
+                            );
+                          case CameraFacing.back:
+                            return const Icon(
+                              Icons.camera_rear,
+                              color: kIconColor,
+                            );
+                        }
+                      },
+                    ),
+                    iconSize: 32.0,
+                    onPressed: () => cameraController.switchCamera()),
                 IconButton(
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.torchState,
