@@ -9,7 +9,7 @@ import 'dart:ui' as ui;
 
 class QrGeneratorController extends GetxController {
   TextEditingController qrController = TextEditingController();
-
+  final GlobalKey<FormState> qrValidateKey = GlobalKey<FormState>();
   final GlobalKey genKey = GlobalKey();
   Future<File> takePicture() async {
     RenderRepaintBoundary boundary =
@@ -19,7 +19,7 @@ class QrGeneratorController extends GetxController {
     ByteData byteData =
         (await image.toByteData(format: ui.ImageByteFormat.png))!;
     Uint8List pngBytes = byteData.buffer.asUint8List();
-    File imgFile = new File('$directory/photo.png');
+    File imgFile = File('$directory/photo.png');
     await imgFile.writeAsBytes(pngBytes);
     return imgFile;
   }
@@ -28,7 +28,8 @@ class QrGeneratorController extends GetxController {
     Get.back();
     qrController.clear();
     final recordedImage = await takePicture();
-    final result = await GallerySaver.saveImage(recordedImage.path);
+    final result = await GallerySaver.saveImage(recordedImage.path,
+        albumName: "Revamph Qr");
     Get.snackbar(
       'Saved to Gallery Successfully',
       'Check your gallery to see image',

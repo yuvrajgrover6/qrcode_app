@@ -55,33 +55,42 @@ class QrGenerator extends StatelessWidget {
           SizedBox(
             width: width * 0.9,
             child: GetBuilder<QrGeneratorController>(builder: (controller) {
-              return TextFormField(
-                controller: controller.qrController,
-                decoration: InputDecoration(
-                  floatingLabelStyle: const TextStyle(color: kPrimaryColor),
-                  labelText: 'Enter Text or Url',
-                  labelStyle: TextStyle(fontSize: width * 0.05),
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: kPrimaryColor),
-                    borderRadius: BorderRadius.circular(
-                      width * 0.05,
+              return Form(
+                key: controller.qrValidateKey,
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  controller: controller.qrController,
+                  decoration: InputDecoration(
+                    floatingLabelStyle: const TextStyle(color: kPrimaryColor),
+                    labelText: 'Enter Text or Url',
+                    labelStyle: TextStyle(fontSize: width * 0.05),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: kPrimaryColor),
+                      borderRadius: BorderRadius.circular(
+                        width * 0.05,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: kPrimaryColor),
+                      borderRadius: BorderRadius.circular(
+                        width * 0.05,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: kPrimaryColor),
+                      borderRadius: BorderRadius.circular(
+                        width * 0.05,
+                      ),
                     ),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: kPrimaryColor),
-                    borderRadius: BorderRadius.circular(
-                      width * 0.05,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: kPrimaryColor),
-                    borderRadius: BorderRadius.circular(
-                      width * 0.05,
-                    ),
-                  ),
+                  style: TextStyle(fontSize: width * 0.05),
+                  maxLines: 5,
                 ),
-                style: TextStyle(fontSize: width * 0.05),
-                maxLines: 5,
               );
             }),
           ),
@@ -98,36 +107,41 @@ class QrGenerator extends StatelessWidget {
                   style: TextStyle(fontSize: width * 0.06),
                 ),
                 onPressed: () {
-                  Get.defaultDialog(
-                    title: 'Qr Code',
-                    middleText: 'Qr Code',
-                    middleTextStyle: TextStyle(fontSize: width * 0.05),
-                    content: RepaintBoundary(
-                      key: controller.genKey,
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
-                            child: Container(
-                              color: Colors.white,
+                  if (controller.qrValidateKey.currentState!.validate()) {
+                    Get.defaultDialog(
+                      title: 'Qr Code',
+                      middleText: 'Qr Code',
+                      middleTextStyle: TextStyle(fontSize: width * 0.05),
+                      content: RepaintBoundary(
+                        key: controller.genKey,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: Container(
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          QrImage(
-                            data: controller.qrController.text,
-                            version: QrVersions.auto,
-                            size: width * 0.8,
-                          ),
-                        ],
+                            QrImage(
+                              data: controller.qrController.text,
+                              version: QrVersions.auto,
+                              size: width * 0.8,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    actions: [
-                      ElevatedButton(
-                        child: const Text('Save to Gallery'),
-                        onPressed: () {
-                          controller.onSubmit();
-                        },
-                      ),
-                    ],
-                  );
+                      actions: [
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(kPrimaryColor)),
+                          child: const Text('Save to Gallery'),
+                          onPressed: () {
+                            controller.onSubmit();
+                          },
+                        ),
+                      ],
+                    );
+                  }
                 },
               ),
             );

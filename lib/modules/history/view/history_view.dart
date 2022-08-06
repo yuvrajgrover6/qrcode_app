@@ -47,7 +47,7 @@ class HistoryView extends StatelessWidget {
                                 icon: Icon(Icons.delete)),
                             children: [
                               ListTile(
-                                title: Text(qrSnapshot.caption),
+                                title: Text(qrSnapshot.value),
                                 horizontalTitleGap: 0,
                               )
                             ],
