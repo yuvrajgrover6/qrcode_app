@@ -37,10 +37,18 @@ class HistoryView extends StatelessWidget {
                       );
                     }));
               } else {
-                return const Text("There is no previous activity");
+                return const Center(
+                    child: Text(
+                  "There is no previous activity",
+                  style: TextStyle(fontSize: 20),
+                ));
               }
             } else {
-              return const Text("There was problem fetching your history");
+              return const Center(
+                  child: Text(
+                "There was problem fetching your history",
+                style: TextStyle(fontSize: 20),
+              ));
             }
           }));
     });
