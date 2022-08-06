@@ -5,13 +5,15 @@ import 'package:hive/hive.dart';
 class QRSnapshot {
   final DateTime time;
   final String value;
+  final String caption;
 
-  QRSnapshot(this.time, this.value);
+  QRSnapshot(this.time, this.value, this.caption);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'time': time.millisecondsSinceEpoch,
       'value': value,
+      'caption': caption
     };
   }
 
@@ -19,6 +21,7 @@ class QRSnapshot {
     return QRSnapshot(
       DateTime.fromMillisecondsSinceEpoch(map['time'] as int),
       map['value'] as String,
+      map['caption'] as String,
     );
   }
 

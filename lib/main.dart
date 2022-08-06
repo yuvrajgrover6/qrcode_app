@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qrcode_app/constants.dart';
 import 'package:qrcode_app/modules/home/screens/home.dart';
 import 'package:qrcode_app/localDBController.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: kPrimaryColor,
       ),
       home: const HomeScreen(),
     );

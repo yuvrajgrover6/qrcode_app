@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:qrcode_app/constants.dart';
 
 class ScanOverlay extends CustomPainter {
   @override
@@ -18,7 +19,7 @@ class ScanOverlay extends CustomPainter {
     canvas.drawRect(
         centreRect,
         Paint()
-          ..color = Colors.green
+          ..color = kPrimaryColor
           ..strokeWidth = 3
           ..style = PaintingStyle.stroke);
   }

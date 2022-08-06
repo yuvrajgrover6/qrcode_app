@@ -5,7 +5,7 @@ import 'package:qrcode_app/modules/qr_scanner/model/qr_snapshot.dart';
 
 class QRController extends GetxController {
   Box get qrHistoryDB => LocalDBController.instance.qrHistoryDB;
-  onResult(String value) async {
-    await qrHistoryDB.add(QRSnapshot(DateTime.now(), value).toMap());
+  onResult(String value, String caption) async {
+    await qrHistoryDB.add(QRSnapshot(DateTime.now(), value, caption).toMap());
   }
 }

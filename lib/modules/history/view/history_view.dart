@@ -46,10 +46,11 @@ class HistoryView extends StatelessWidget {
                                     snapshot.data!.keys.toList()[index]),
                                 icon: Icon(Icons.delete)),
                             children: [
-                              ListTile(
-                                title: Text(qrSnapshot.value),
-                                horizontalTitleGap: 0,
-                              )
+                              if (qrSnapshot.caption != "")
+                                ListTile(
+                                  title: Text(qrSnapshot.caption),
+                                  horizontalTitleGap: 0,
+                                )
                             ],
                           );
                         }));
