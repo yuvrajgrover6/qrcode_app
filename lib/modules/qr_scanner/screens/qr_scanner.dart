@@ -40,9 +40,29 @@ class QrScanner extends GetView<QRController> {
                           '${barcode.type.name}: $result',
                           style: TextStyle(fontSize: 20),
                         ),
-                        Text("Add caption"),
-                        TextField(
-                          controller: captionController,
+                        SizedBox(height: 20),
+                        Text("Add caption (optional)"),
+                        SizedBox(height: 20),
+                        Container(
+                          width: 200,
+                          height: 50,
+                          child: TextField(
+                            decoration: InputDecoration(
+                                hintText: "Caption",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:
+                                        const BorderSide(color: kPrimaryColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:
+                                        const BorderSide(color: kPrimaryColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: const BorderSide(
+                                        color: kPrimaryColor))),
+                            controller: captionController,
+                          ),
                         )
                       ],
                     ),
