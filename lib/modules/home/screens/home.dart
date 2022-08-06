@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrcode_app/constants.dart';
+import 'package:qrcode_app/modules/qr_generator/screens/qr_generator.dart';
 import 'package:qrcode_app/modules/qr_scanner/screens/qr_scanner.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,9 +23,7 @@ class HomeScreen extends StatelessWidget {
         ),
         body: TabBarView(children: [
           QrScanner(width: width, height: height),
-          const Center(
-            child: Text('Qr Generator'),
-          ),
+          QrGenerator(width: width, height: height),
         ]),
       ),
     );
