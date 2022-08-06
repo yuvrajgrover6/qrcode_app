@@ -37,6 +37,7 @@ dependencies:
   mobile_scanner: ^1.1.2
   qr_flutter: ^4.0.0
   get:
+  gallery_saver: ^2.3.2
 
 dev_dependencies:
   flutter_test:
