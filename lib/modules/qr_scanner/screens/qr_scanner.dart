@@ -19,6 +19,7 @@ class QrScanner extends GetView<QRController> {
   Widget build(BuildContext context) {
     MobileScannerController cameraController =
         MobileScannerController(facing: CameraFacing.back);
+    Get.put(QRController());
     return Stack(
       children: [
         MobileScanner(

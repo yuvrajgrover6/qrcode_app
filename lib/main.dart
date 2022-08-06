@@ -4,6 +4,7 @@ import 'package:qrcode_app/modules/home/screens/home.dart';
 import 'package:qrcode_app/localDBController.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Get.putAsync(() async {
     final controller = LocalDBController();
     await controller.intializeLocalDB();

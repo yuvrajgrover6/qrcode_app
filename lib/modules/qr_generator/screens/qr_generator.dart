@@ -102,10 +102,22 @@ class QrGenerator extends StatelessWidget {
                     title: 'Qr Code',
                     middleText: 'Qr Code',
                     middleTextStyle: TextStyle(fontSize: width * 0.05),
-                    content: QrImage(
-                      data: controller.qrController.text,
-                      version: QrVersions.auto,
-                      size: width * 0.8,
+                    content: RepaintBoundary(
+                      key: controller.genKey,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Container(
+                              color: Colors.white,
+                            ),
+                          ),
+                          QrImage(
+                            data: controller.qrController.text,
+                            version: QrVersions.auto,
+                            size: width * 0.8,
+                          ),
+                        ],
+                      ),
                     ),
                     actions: [
                       ElevatedButton(

@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 
-@HiveType(typeId: 0)
 class QRSnapshot {
-  @HiveField(0)
   final DateTime time;
-  @HiveField(1)
   final String value;
 
   QRSnapshot(this.time, this.value);
