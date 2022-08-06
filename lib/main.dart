@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qrcode_app/modules/home/screens/home.dart';
+import 'package:qrcode_app/localDBController.dart';
 
-void main() {
+Future<void> main() async {
+  await Get.putAsync(() async {
+    final controller = LocalDBController();
+    await controller.intializeLocalDB();
+    return controller;
+  }, permanent: true);
   runApp(const MyApp());
 }
 

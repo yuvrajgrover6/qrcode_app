@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qrcode_app/constants.dart';
+import 'package:qrcode_app/modules/qr_scanner/controller/qr_controller.dart';
 import 'package:qrcode_app/modules/qr_scanner/screens/scan_overlay.dart';
 
-class QrScanner extends StatelessWidget {
+class QrScanner extends GetView<QRController> {
   QrScanner({
     Key? key,
     required this.width,
@@ -23,12 +24,13 @@ class QrScanner extends StatelessWidget {
         MobileScanner(
             allowDuplicates: false,
             controller: cameraController,
-            onDetect: (barcode, args) {
+            onDetect: (barcode, args) async {
               if (barcode.rawValue == null) {
                 Get.defaultDialog(title: 'Failed to scan Barcode');
               } else {
-                final String code = barcode.rawValue!;
-                Get.defaultDialog(title: 'Barcode', content: Text(code));
+                final String result = barcode.rawValue!;
+                await controller.onResult(result);
+                Get.defaultDialog(title: 'Barcode', content: Text(result));
               }
             }),
         Positioned.fill(
